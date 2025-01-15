@@ -8,3 +8,4 @@ The comments about the code is currently not English, but i going to change it. 
 
 Sorry for the English, but i try my best!
 
+New Changes
