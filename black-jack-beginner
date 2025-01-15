@@ -1,0 +1,261 @@
+
+
+#Blackjack játék egyszerűsített változata
+#Írj egy egyszerű kártyajátékot, ahol a cél az, hogy a lapok összértéke közelebb legyen 21-hez, mint az ellenfélé.
+
+
+import random
+import time
+import pyfiglet
+
+# Lista előkészítése
+lap_szamok=[]
+
+
+# Szamok megteremtése for fügvénnyel
+for x in range(1,11,1):
+    lap_szamok.append(x)
+
+# Maximum meghatározása. 
+max=21
+
+# Randomizálás a gépnek a lap listából.
+gép_elso_lap=random.choice(lap_szamok)
+gép_masodik_lap=random.choice(lap_szamok)
+gép_ossz=gép_elso_lap+gép_masodik_lap
+
+# Randomizálás a játékosnak a lap listából.
+jatekos_elso_lap=random.choice(lap_szamok)
+jatekos_masodik_lap=random.choice(lap_szamok)
+jatekos_ossz=jatekos_elso_lap+jatekos_masodik_lap
+
+
+blackjack=pyfiglet.figlet_format('GAMBLING!')
+print(blackjack)
+
+# Behívás az első körre.
+jatekos=input('Szeretnél Black Jackezni? + ha igen, - ha nem ' )
+ 
+if jatekos == '+':
+    
+    # Első kör! 2 lap!
+    print(' A lapok keverés alatt. ')
+    print('....')
+    time.sleep(3)
+    
+    print(pyfiglet.figlet_format('ELSO KOR'))
+    
+    print(f' A lapjaid összesen - {jatekos_ossz}')
+    
+    #print(f'A gép lap száma: {gép_ossz}')
+    
+    
+    if jatekos_ossz > max:
+        print(pyfiglet.figlet_format('BESOKALTAL!'))
+        
+        print(f'A gép számai - {gép_ossz}')
+        print(f'A te számaid - {jatekos_ossz}')
+        quit()
+        
+    
+        
+    elif gép_ossz > max:
+        print(pyfiglet.figlet_format('NYERTEL!'))
+        
+        print(f'A gép számai - {gép_ossz}')
+        print(f'A te számaid - {jatekos_ossz}')
+        quit()
+        
+    
+    jatekos= input(' Szeretnél emelni? + ha igen, - ha nem. ')
+    
+    if jatekos == '+':
+        
+        print(pyfiglet.figlet_format('MASODIK KOR'))
+        
+        #Második kör , 3 lap. 
+        
+        gép_harmadik_lap=random.choice(lap_szamok)
+        gép_masodikkör=gép_ossz+gép_harmadik_lap
+        
+        jatekos_harmadik_lap=random.choice(lap_szamok)
+        jatekos_masodikkör=jatekos_ossz+jatekos_harmadik_lap
+        
+        print(f'A lapjaid összesen - {jatekos_masodikkör} ')
+        #print(f'A gép lapjai: {gép_masodikkör}')
+        
+        
+        # Második kör játékos besokall kimenetel!
+        if jatekos_masodikkör > max:
+            print(pyfiglet.figlet_format('BESOKALTAL!'))
+            
+            print(f'A gép számai - {gép_masodikkör}')    
+            print(f'A te számaid - {jatekos_masodikkör}')  
+            quit()
+            
+        # Második kör gép besokall kimenetel!
+        elif gép_masodikkör > max:
+            print(pyfiglet.figlet_format('NYERTÉL!'))
+            
+            print(f'A gép számai - {gép_masodikkör}')    
+            print(f'A te számaid - {jatekos_masodikkör}') 
+            quit()
+        
+        elif gép_masodikkör > max and jatekos_masodikkör > max:
+            print(pyfiglet.figlet_format('DÖNTETLEN!'))
+            
+            print(f'A gép számai - {gép_masodikkör}')    
+            print(f'A te számaid - {jatekos_masodikkör}') 
+            quit()
+            
+        
+        jatekos= input(' Szeretnél még emelni? + ha igen, - ha nem. ')
+        
+        if jatekos == '+':
+            
+            print(pyfiglet.figlet_format('HARMADIK KOR'))
+            
+            # 3. kör , 4 lap! 
+            #Osztás rész.
+            
+            gép_negyedik_lap=random.choice(lap_szamok)
+            gép_harmadik_kör=gép_masodikkör+gép_negyedik_lap
+            
+            jatekos_negyedik_lap=random.choice(lap_szamok)
+            jatekos_harmadik_kör=jatekos_negyedik_lap+jatekos_masodikkör
+            
+            print(f'A te számaid - {jatekos_harmadik_kör}')
+            #print(f'A gép számai - {gép_harmadik_kör}')
+            
+            # Harmadik kör gép besokall, kimenetel!
+            if gép_harmadik_kör > max:
+                
+                print(pyfiglet.figlet_format('NYERTEL!'))
+                
+                print(f'A gép számai - {gép_harmadik_kör}')
+                print(f'A te számaid - {jatekos_harmadik_kör}')
+                quit()
+                
+            # Harmadik kör játékos besokall, kimenetel!
+            elif jatekos_harmadik_kör > max:
+                print(pyfiglet.figlet_format('VESZTETTEL, BESOKALTAL!'))
+                
+                print(f'A gép számai - {gép_harmadik_kör}')
+                print(f'A te számaid - {jatekos_harmadik_kör}')
+                quit()
+                
+            # Harmadik kör, döntetlen végkimenetel!  
+            elif jatekos_harmadik_kör > max and gép_harmadik_kör > max:
+                print(pyfiglet.figlet_format('DONTETLEN!'))
+                
+                print(f'A gép számai - {gép_harmadik_kör} ')
+                print(f'A te számaid - {jatekos_harmadik_kör}')
+                quit()
+            
+            jatekos=input('Kérsz még lapot? + ha igen, - ha nem.')
+            
+            
+            # NEGYEDIK KÖR!
+            if jatekos == '+':
+                print(pyfiglet.figlet_format('NEGYEDIK KOR'))
+                
+                gep_otodik_lap=random.choice(lap_szamok)
+                gep_negyedik_kör=gep_otodik_lap+gép_harmadik_kör
+                
+                jatekos_otodik_lap=random.choice(lap_szamok)
+                jatekos_negyedik_kör=jatekos_otodik_lap+jatekos_harmadik_kör
+                
+                print(f'A te számaid - {jatekos_negyedik_kör}')
+                #print(f'A gép számai - {gép_negyedik_kör}')
+                
+                if jatekos_negyedik_kör > max:
+                    print(pyfiglet.figlet_format('BESOKALTAL!'))
+                    
+                    print(f'A te számaid - {jatekos_negyedik_kör}')
+                    print(f' A gép számai - {gep_negyedik_kör}')
+                    quit()
+                elif gep_negyedik_kör > max:
+                    print(pyfiglet.figlet_format('GYŐZTÉL!'))
+                    
+                    print(f'A gép számai - {gep_negyedik_kör}')
+                    print(f'A te számaid - {jatekos_negyedik_kör}')
+                    quit()
+                elif gep_negyedik_kör > max and jatekos_negyedik_kör > max:
+                    print(pyfiglet.figlet_format('DÖNTETLEN!'))
+                    
+                    print(f'A gép számai - {gep_negyedik_kör}')
+                    print(f'A te számaid - {jatekos_negyedik_kör}')
+                    quit()
+                    
+            # Harmadik kör kiszállás, nyertes kimenetel!
+            elif jatekos == '-' and jatekos_harmadik_kör > gép_harmadik_kör:
+                print(pyfiglet.figlet_format('GYOZTEL!'))
+                
+                print(f'A gép számai - {gép_harmadik_kör} ')
+                print(f'A te számaid - {jatekos_harmadik_kör}')
+                quit()
+            # Harmadik kör kiszállás, vesztes kimenetel!
+            elif jatekos == '-' and jatekos_harmadik_kör < gép_harmadik_kör:
+                print(pyfiglet.figlet_format('VESZTETTEL!'))
+                
+                print(f'A gép számai - {gép_harmadik_kör} ')
+                print(f'A te számaid - {jatekos_harmadik_kör}')
+                quit()
+                
+                      
+        # Második kör kiszállás, győztes kimenetel!         
+        elif jatekos == '-' and jatekos_masodikkör > gép_masodikkör:
+            
+            print(pyfiglet.figlet_format('NYERTÉL!'))
+            print(f'A gép számai - {gép_masodikkör}')
+            print(f'A te számaid - {jatekos_masodikkör}')
+            quit()         
+        # Második kör kiszállás, vesztes kimenetel!
+        elif jatekos == '-' and jatekos_masodikkör < gép_masodikkör:
+            print(pyfiglet.figlet_format('VESZTETTEL!'))
+            print(f'A gép számai - {gép_harmadik_lap}')
+            print(f'A te számaid - {jatekos_harmadik_lap}')
+            
+        
+            
+    # Első kör kiszállás kimenetel győztesen     
+    elif jatekos == '-' and jatekos_ossz > gép_ossz:
+        print(pyfiglet.figlet_format('NYERTEL!'))
+        print(f'A gép számai - {gép_ossz}')    
+        print(f'A te számaid - {jatekos_ossz}')    
+        
+    #Első kör kiszállás kimenetel vereséggel. 
+    elif jatekos == '-' and jatekos_ossz < gép_ossz:
+        print(pyfiglet.figlet_format('VESZTETTEL!')   )
+        print(f'A gép számai - {gép_ossz}')    
+        print(f'A te számaid - {jatekos_ossz}')  
+        
+# Felkérés elutasítás kimenetel.         
+elif jatekos == '-':
+    print(pyfiglet.figlet_format('LEGKOZELEBB!'))
+        
+        
+        
+            
+        
+ 
+      
+        
+        
+    
+    
+    
+
+
+    
+
+    
+    
+    
+        
+    
+    
+        
+    
+    
+    
